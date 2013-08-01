@@ -1,0 +1,24 @@
+{
+    "name": "bazalt/rest",
+    "license": "New BSD License",
+    "authors": [
+        {
+            "name": "Vitalii Savchuk",
+            "email": "esvit666@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "Bazalt\\Rest": "src/"
+        }
+    },
+    "require": {
+        "php": ">=5.4.0",
+        "analog/analog": "dev-master",
+        "symfony/event-dispatcher": "*",
+        "peej/tonic": "*"
+    },
+    "require-dev": {
+        "satooshi/php-coveralls": "dev-master"
+    }
+}
