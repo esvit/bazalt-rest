@@ -31,4 +31,16 @@ class Resource extends \Tonic\Resource
             throw new \Tonic\ConditionException;
         }
     }
+
+    protected function uniqueCookie($cookie, $time = null)
+    {
+        if (!$time) {
+            $time = 60 * 60 * 24;
+        }
+        $isSet = isset($_COOKIE[$cookie]);
+        if (!$isSet) {
+            setcookie($cookie, true, time() + $time, '/');
+        }
+        return !$isSet;
+    }
 }
