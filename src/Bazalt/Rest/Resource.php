@@ -24,4 +24,11 @@ class Resource extends \Tonic\Resource
             }
         });
     }
+
+    protected function action($action)
+    {
+        if (!isset($_GET['action']) || $_GET['action'] != $action) {
+            throw new \Tonic\ConditionException;
+        }
+    }
 }
