@@ -7,11 +7,6 @@ php:
 env:
   - APPLICATION_ENV="testing" DB="mysql" DB_USERNAME="root"
 
-before_install:
-  - mysql -u$DB_USERNAME -e 'create database tests;'
-  - unzip tests/sakila.zip
-  - mysql -u$DB_USERNAME tests < sakila.sql
-
 before_script:
   - composer self-update
   - composer install --dev --no-interaction
