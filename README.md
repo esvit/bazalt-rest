@@ -1,6 +1,6 @@
 bazalt-orm
 ==========
 
-[![Build Status](https://travis-ci.org/esvit/bazalt-orm.png)](https://travis-ci.org/esvit/bazalt-orm) [![Coverage Status](https://coveralls.io/repos/esvit/bazalt-orm/badge.png?branch=master)](https://coveralls.io/r/esvit/bazalt-orm?branch=master)
+[![Build Status](https://travis-ci.org/esvit/bazalt-rest.png)](https://travis-ci.org/esvit/bazalt-rest) [![Coverage Status](https://coveralls.io/repos/esvit/bazalt-rest/badge.png?branch=master)](https://coveralls.io/r/esvit/bazalt-rest?branch=master)
 
-Simple ORM on PHP
+Bazalt REST based on Tonic
