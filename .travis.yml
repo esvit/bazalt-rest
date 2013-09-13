@@ -14,7 +14,7 @@ before_script:
 script:
   - mkdir -p tmp/logs
   - mkdir -p build/logs
-  - phpunit --configuration tests/$DB.xml
+  - phpunit --configuration phpunit.xml.dist
 
 after_script:
   - php vendor/bin/coveralls -v
