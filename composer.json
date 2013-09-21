@@ -9,7 +9,8 @@
     ],
     "autoload": {
         "psr-0": {
-            "Bazalt\\Rest": "src/"
+            "Bazalt\\Rest": "src/",
+            "Bazalt\\Rest\\Test": "tests/"
         }
     },
     "require": {
