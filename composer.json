@@ -15,8 +15,8 @@
     "require": {
         "php": ">=5.4.0",
         "analog/analog": "dev-master",
-        "symfony/event-dispatcher": "*",
-        "peej/tonic": "*"
+        "peej/tonic": "*",
+        "michelf/php-markdown": "1.3.*@dev"
     },
     "require-dev": {
         "satooshi/php-coveralls": "dev-master"

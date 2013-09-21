@@ -50,4 +50,13 @@ class Hello extends \Bazalt\Rest\Resource
         return new \Bazalt\Rest\Response(200, $this->request->data);
     }
 
+    /**
+     * @method GET
+     * @json
+     * @action test
+     */
+    public function testAction()
+    {
+        return new \Bazalt\Rest\Response(200, 'testAction');
+    }
 }

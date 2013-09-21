@@ -11,9 +11,11 @@ class ResourceTest extends \tests\BaseCase
 
     protected function setUp()
     {
+        global $loader;
+
         $config = array(
             'load' => array(
-                __DIR__ .'/*.php'
+                $loader->findFile('tests\\Hello'),
             )
         );
         $this->app = new Tonic\Application($config);
@@ -25,37 +27,41 @@ class ResourceTest extends \tests\BaseCase
 
     public function testGet()
     {
-        $request = new Tonic\Request(array(
-            'uri' => '/hello.json'
-        ));
-
         $response = new \Bazalt\Rest\Response(200, array(
             'hello' => '',
             'url' => '/hello'
         ));
 
-        $resource = new \tests\Hello($this->app, $request);
-
-        $this->assertResponse($resource, $response);
+        $this->assertResponse('GET /hello.json', [], $response);
     }
 
 
     public function testPost()
     {
-        $request = new Tonic\Request(array(
-            'uri' => '/hello.json',
-            'method' => 'POST',
-            'contentType' => 'application/json',
-            'data' => json_encode(array(
-                'hello' => 'computer'
-            ))
-        ));
         $response = new \Bazalt\Rest\Response(200, array(
             'hello' => 'computer'
         ));
 
-        $resource = new \tests\Hello($this->app, $request);
+        $this->assertResponse('POST /hello.json', [
+            'data' => json_encode([
+                'hello' => 'computer'
+            ])
+        ], $response);
+    }
 
-        $this->assertResponse($resource, $response);
+    public function testAction()
+    {
+        $response = new \Bazalt\Rest\Response(200, 'testAction');
+
+        $_GET = ['action' => 'test'];
+        $this->assertResponse('GET /hello.json', [], $response);
+    }
+
+    public function testDocumentation()
+    {
+        $html = file_get_contents(__DIR__ . '/expectedDoc.html');
+        $response = new \Bazalt\Rest\Response(200, $html);
+
+        $this->assertResponse('GET /hello', ['contentType' => 'text/html'], $response);
     }
 }

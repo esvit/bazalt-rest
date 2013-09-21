@@ -9,12 +9,36 @@ abstract class BaseCase extends \PHPUnit_Framework_TestCase
 {
     protected $app;
 
-    public function assertResponse(\Bazalt\Rest\Resource $resource, \Bazalt\Rest\Response $assertResponse)
+    public function send($request, $options= [])
     {
-        $response = $resource->exec();
-//        print_r($response);exit;
+        list($method, $uri) = explode(' ', $request);
 
-        $this->assertEquals($response->code, $assertResponse->code);
-        $this->assertEquals(json_decode($response->body, true), $assertResponse->body);
+        if (!is_array($options)) {
+            $options = [];
+        }
+        if (!isset($options['contentType'])) {
+            $options['contentType'] = 'application/json';
+        }
+        $options['method'] = $method;
+        $options['uri'] = $uri;
+
+        $request = new \Tonic\Request($options);
+
+        $resource = $this->app->getResource($request);
+        $response = $resource->exec();
+
+        $body = $response->body;
+        if ($options['contentType'] == 'application/json') {
+            $body = json_decode($response->body, true);
+        }
+        return [$response->code, $body];
+    }
+
+    public function assertResponse($request, $options= [], \Bazalt\Rest\Response $assertResponse)
+    {
+        list($code, $response) = $this->send($request, $options);
+
+        $this->assertEquals($assertResponse->body, $response);
+        $this->assertEquals($assertResponse->code, $code);
     }
 }

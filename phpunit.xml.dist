@@ -23,6 +23,8 @@
         <var name="db_password" value="awdawd" />
         <var name="db_name" value="bazalt_cms" />
         <var name="db_port" value="3306"/>
+
+        <env name="APPLICATION_ENV" value="testing"/>
     </php>
 
     <testsuites>
