@@ -1,6 +1,6 @@
 <?php
 
-namespace Bazalt\Rest\Test;
+namespace tests;
 
 use Bazalt\Rest;
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Bazalt\Rest\Test;
+namespace tests;
 
 use Bazalt\Rest;
 use Tonic;
 
-class ResourceTest extends BaseCase
+class ResourceTest extends \Bazalt\Rest\Test\BaseCase
 {
     protected $app;
 
