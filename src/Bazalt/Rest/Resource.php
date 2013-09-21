@@ -36,6 +36,7 @@ class Resource extends \Tonic\Resource
     /**
      * @method GET
      * @provides text/html
+     * @accepts text/html
      * @priority 100
      * @return \Bazalt\Rest\Response
      */
@@ -51,7 +52,7 @@ class Resource extends \Tonic\Resource
 
         $doc .= $comment['comment'];
 
-        $html = \Michelf\Markdown::defaultTransform($doc);
+        $html = (class_exists('\\Michelf\\Markdown')) ? \Michelf\Markdown::defaultTransform($doc) : $doc;
 
         return new \Bazalt\Rest\Response(200, $html);
     }
