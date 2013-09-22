@@ -35,9 +35,7 @@ class Resource extends \Tonic\Resource
 
     /**
      * @method GET
-     * @provides text/html
-     * @accepts text/html
-     * @priority 100
+     * @action doc
      * @return \Bazalt\Rest\Response
      */
     public function getDocumentation()
