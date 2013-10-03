@@ -32,7 +32,7 @@ class ResourceTest extends \Bazalt\Rest\Test\BaseCase
             'url' => '/hello'
         ));
 
-        $this->assertResponse('GET /hello.json', [], $response);
+        $this->assertResponse('GET /hello.json', array(), $response);
     }
 
 
@@ -42,18 +42,18 @@ class ResourceTest extends \Bazalt\Rest\Test\BaseCase
             'hello' => 'computer'
         ));
 
-        $this->assertResponse('POST /hello.json', [
-            'data' => json_encode([
+        $this->assertResponse('POST /hello.json', array(
+            'data' => json_encode(array(
                 'hello' => 'computer'
-            ])
-        ], $response);
+            ))
+        ), $response);
     }
 
     public function testAction()
     {
         $response = new \Bazalt\Rest\Response(200, 'testAction');
 
-        $_GET = ['action' => 'test'];
-        $this->assertResponse('GET /hello.json', [], $response);
+        $_GET = array('action' => 'test');
+        $this->assertResponse('GET /hello.json', array(), $response);
     }
 }
