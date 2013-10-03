@@ -9,12 +9,12 @@ abstract class BaseCase extends \PHPUnit_Framework_TestCase
 {
     protected $app;
 
-    public function send($request, $options= [])
+    public function send($request, $options= array())
     {
         list($method, $uri) = explode(' ', $request);
 
         if (!is_array($options)) {
-            $options = [];
+            $options = array();
         }
         if (!isset($options['contentType'])) {
             $options['contentType'] = 'application/json';
@@ -34,7 +34,7 @@ abstract class BaseCase extends \PHPUnit_Framework_TestCase
         return [$response->code, $body];
     }
 
-    public function assertResponse($request, $options= [], \Bazalt\Rest\Response $assertResponse)
+    public function assertResponse($request, $options= array(), \Bazalt\Rest\Response $assertResponse)
     {
         list($code, $response) = $this->send($request, $options);
 
