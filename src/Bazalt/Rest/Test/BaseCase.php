@@ -31,7 +31,7 @@ abstract class BaseCase extends \PHPUnit_Framework_TestCase
         if ($options['contentType'] == 'application/json') {
             $body = json_decode($response->body, true);
         }
-        return [$response->code, $body];
+        return array($response->code, $body);
     }
 
     public function assertResponse($request, $options= array(), \Bazalt\Rest\Response $assertResponse)
