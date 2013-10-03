@@ -56,12 +56,4 @@ class ResourceTest extends \Bazalt\Rest\Test\BaseCase
         $_GET = ['action' => 'test'];
         $this->assertResponse('GET /hello.json', [], $response);
     }
-
-    public function testDocumentation()
-    {
-        $html = file_get_contents(__DIR__ . '/expectedDoc.html');
-        $response = new \Bazalt\Rest\Response(200, $html);
-
-        $this->assertResponse('GET /hello', ['contentType' => 'text/html'], $response);
-    }
 }
