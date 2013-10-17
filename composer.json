@@ -20,5 +20,8 @@
     },
     "require-dev": {
         "satooshi/php-coveralls": "dev-master"
+    },
+    "suggest": {
+        "bazalt/orm": "Simple & usable ORM"
     }
 }
