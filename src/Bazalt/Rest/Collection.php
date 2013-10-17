@@ -84,11 +84,11 @@ class Collection
         $this->collection->countPerPage((int)$params['count']);
     }
 
-    public function fetch($params = [], $callback = null, $className = null)
+    public function fetch($params = array(), $callback = null, $className = null)
     {
         $this->exec($params);
 
-        $return = [];
+        $return = array();
         $result = $this->collection->fetchPage($className);
 
         foreach ($result as $k => $item) {
@@ -109,15 +109,15 @@ class Collection
             $return[$k] = $res;
         }
 
-        $data = [
+        $data = array(
             'data' => $return,
-            'pager' => [
+            'pager' => array(
                 'current'       => $this->collection->page(),
                 'count'         => $this->collection->getPagesCount(),
                 'total'         => $this->collection->count(),
                 'countPerPage'  => $this->collection->countPerPage()
-            ]
-        ];
+            )
+        );
         //$data['sql'] = $this->collection->toSQL();
         return $data;
     }
