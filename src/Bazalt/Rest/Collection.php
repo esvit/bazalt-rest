@@ -9,9 +9,9 @@ class Collection
      */
     protected $collection = null;
 
-    protected $sortableColumns = [];
+    protected $sortableColumns = array();
 
-    protected $filterColumns = [];
+    protected $filterColumns = array();
 
     public function __construct(\Bazalt\ORM\Collection &$collection)
     {
