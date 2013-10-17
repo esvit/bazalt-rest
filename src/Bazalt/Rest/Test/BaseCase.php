@@ -22,10 +22,17 @@ abstract class BaseCase extends \PHPUnit_Framework_TestCase
         $options['method'] = $method;
         $options['uri'] = $uri;
 
+        $get = $_GET;
+        if (strtolower($method) == 'get' && isset($options['data'])) {
+            $_GET = $options['data'];
+        }
+
         $request = new \Tonic\Request($options);
 
         $resource = $this->app->getResource($request);
         $response = $resource->exec();
+
+        $_GET = $get;
 
         $body = $response->body;
         if ($options['contentType'] == 'application/json') {
