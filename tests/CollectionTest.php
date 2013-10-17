@@ -51,9 +51,9 @@ class CollectionTest extends \Bazalt\Rest\Test\BaseCase
             ->method('addOrderBy')
             ->with($this->equalTo('`title` DESC'));
 
-        $params = [
-            'sorting' => ['-title']
-        ];
+        $params = array(
+            'sorting' => array('-title')
+        );
         $table->exec($params);
     }
 /*
