@@ -32,7 +32,7 @@ class Collection
         return $this;
     }
 
-    public function exec($params = [])
+    public function exec($params = array())
     {
         if (!isset($params['page'])) {
             $params['page'] = 1;
