@@ -82,7 +82,7 @@ class Collection
                 }
             }
         }
-        echo $this->collection->toSql();
+        //echo $this->collection->toSql();
         $this->collection->page((int)$params['page']);
         $this->collection->countPerPage((int)$params['count']);
     }
