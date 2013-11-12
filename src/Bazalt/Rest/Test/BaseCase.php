@@ -41,6 +41,12 @@ abstract class BaseCase extends \PHPUnit_Framework_TestCase
         return array($response->code, $body);
     }
 
+    public function assertResponseCode($request, $options= array(), $code)
+    {
+        list($resCode, $response) = $this->send($request, $options);
+        $this->assertEquals($code, $resCode);
+    }
+
     public function assertResponse($request, $options= array(), \Bazalt\Rest\Response $assertResponse)
     {
         list($code, $response) = $this->send($request, $options);
