@@ -47,7 +47,9 @@ class Collection
                 if (!isset($this->filterColumns[$columnName])) {
                     continue;
                 }
-                $value = urldecode($value);
+                if(is_string($value)) {
+                    $value = urldecode($value);
+                }
                 if ($this->filterColumns[$columnName] !== false && is_callable($this->filterColumns[$columnName])) {
                     $callback = $this->filterColumns[$columnName];
                     $callback($this->collection, $columnName, $value);
@@ -80,6 +82,7 @@ class Collection
                 }
             }
         }
+        echo $this->collection->toSql();
         $this->collection->page((int)$params['page']);
         $this->collection->countPerPage((int)$params['count']);
     }
