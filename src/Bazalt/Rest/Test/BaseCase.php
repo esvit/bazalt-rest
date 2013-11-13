@@ -26,6 +26,9 @@ abstract class BaseCase extends \PHPUnit_Framework_TestCase
         if (strtolower($method) == 'get' && isset($options['data'])) {
             $_GET = $options['data'];
         }
+        if (isset($options['_GET'])) {
+            $_GET = $options['_GET'];
+        }
 
         $request = new \Tonic\Request($options);
 
