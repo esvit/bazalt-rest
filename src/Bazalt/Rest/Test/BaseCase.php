@@ -9,6 +9,14 @@ abstract class BaseCase extends \PHPUnit_Framework_TestCase
 {
     protected $app;
 
+    protected function initApp($files)
+    {
+        $config = array(
+            'load' => $files
+        );
+        $this->app = new \Tonic\Application($config);
+    }
+
     public function send($request, $options= array())
     {
         list($method, $uri) = explode(' ', $request);
