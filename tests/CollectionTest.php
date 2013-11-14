@@ -10,7 +10,7 @@ class CollectionTest extends \Bazalt\Rest\Test\BaseCase
 
     public function setUp()
     {
-        $this->collection = $this->getMock('Bazalt\\ORM\\Collection', array('addOrderBy', 'clearOrderBy', 'page', 'countPerPage'));
+        $this->collection = $this->getMock('Bazalt\\ORM\\Collection', array('addOrderBy', 'clearOrderBy', 'page', 'countPerPage'), array(), '', false);
     }
 
     public function tearDown()
