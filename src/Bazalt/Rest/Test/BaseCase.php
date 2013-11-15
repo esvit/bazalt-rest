@@ -9,6 +9,14 @@ abstract class BaseCase extends \PHPUnit_Framework_TestCase
 {
     protected $app;
 
+    protected function initApp($files)
+    {
+        $config = array(
+            'load' => $files
+        );
+        $this->app = new \Tonic\Application($config);
+    }
+
     public function send($request, $options= array())
     {
         list($method, $uri) = explode(' ', $request);
@@ -25,6 +33,9 @@ abstract class BaseCase extends \PHPUnit_Framework_TestCase
         $get = $_GET;
         if (strtolower($method) == 'get' && isset($options['data'])) {
             $_GET = $options['data'];
+        }
+        if (isset($options['_GET'])) {
+            $_GET = $options['_GET'];
         }
 
         $request = new \Tonic\Request($options);
