@@ -11,7 +11,7 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
 
     protected function setUp()
     {
-        $this->uploader = new \Bazalt\Rest\Uploader(['jpg'], 1024);
+        $this->uploader = new \Bazalt\Rest\Uploader(array('jpg'), 1024);
 
         if(file_exists('/tmp/uploads_test')) {
             $this->rrmdir('/tmp/uploads_test');
@@ -58,9 +58,9 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
      */
     public function testHandleUploadInvalidFile()
     {
-        $_FILES['file'] = [
+        $_FILES['file'] = array(
             'size' => 0
-        ];
+        );
         $res = $this->uploader->handleUpload('/tmp');
         $this->assertEquals(array('error' => 'File is empty.'), $res);
     }
@@ -70,11 +70,11 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
      */
     public function testHandleUploadInvalidFile2()
     {
-        $_FILES['file'] = [
+        $_FILES['file'] = array(
             'size' => 10,
             'name' => '/tmp/test.jpg'
-        ];
-        $this->uploader = new \Bazalt\Rest\Uploader(['png'], 1024);
+        );
+        $this->uploader = new \Bazalt\Rest\Uploader(array('png'), 1024);
         $res = $this->uploader->handleUpload('/tmp');
     }
 
@@ -83,26 +83,26 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
      */
     public function testHandleUploadError()
     {
-        $_FILES['file'] = [
+        $_FILES['file'] = array(
             'size' => 10,
             'error' => 1,
             'name' => '/tmp/test.jpg'
-        ];
+        );
         $res = $this->uploader->handleUpload('/tmp');
     }
 
     public function testHandleUpload()
     {
-        $this->uploader = $this->getMock('\Bazalt\Rest\Uploader', ['moveUploadedFile'], [['jpg'], 1024]);
-        $_FILES['file'] = [
+        $this->uploader = $this->getMock('\Bazalt\Rest\Uploader', array('moveUploadedFile'), array(array('jpg'), 1024));
+        $_FILES['file'] = array(
             'size' => 10,
             'error' => 0,
             'tmp_name' => '/tmp/test.jpg',
             'name' => '/tmp/test.jpg'
-        ];
+        );
         $this->uploader->expects($this->once())
             ->method('moveUploadedFile');
-        $res = $this->uploader->handleUpload('/tmp/uploads_test', [21, 'photos']);
+        $res = $this->uploader->handleUpload('/tmp/uploads_test', array(21, 'photos'));
         $this->assertTrue(strstr($res, '/21/photos/') !== false);
     }
 }
