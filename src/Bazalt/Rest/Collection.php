@@ -68,7 +68,7 @@ class Collection
                     $direction = $item[0] == '+' ? 'ASC' : 'DESC';
                     $columnName = substr($item, 1);
                 } else {
-                    $direction = $item == 'asc' ? 'ASC' : 'DESC';
+                    $direction = strtolower($item) == 'asc' ? 'ASC' : 'DESC';
                     $columnName = $key;
                 }
                 if (!isset($this->sortableColumns[$columnName])) {
@@ -82,7 +82,7 @@ class Collection
                 }
             }
         }
-        //echo $this->collection->toSql();
+//        echo $this->collection->toSql()."\n";
         $this->collection->page((int)$params['page']);
         $this->collection->countPerPage((int)$params['count']);
     }
