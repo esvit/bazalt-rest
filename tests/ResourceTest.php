@@ -27,9 +27,16 @@ class ResourceTest extends \Bazalt\Rest\Test\BaseCase
 
     public function testParams()
     {
-        $_SERVER['QUERY_STRING'] = 'param1=2549&appname=appName1&appname=appName2&appname=appName3&appname=appName4&appname=appName5&apptype=thetype&idsess=1231324567980147dzeze55sd4&action=myaction';
+        $_SERVER['QUERY_STRING'] = 'test[]=1&test[]=2&filter[is_top]=1&param1=2549&appname=appName1&appname=appName2&appname=appName3&appname=appName4&appname=appName5&apptype=thetype&idsess=1231324567980147dzeze55sd4&action=myaction';
 
         $this->assertEquals(array (
+            'test' => [
+                0 => '1',
+                1 => '2'
+            ],
+            'filter' => [
+                'is_top' => 1
+            ],
             'param1' => '2549',
             'appname' =>
                 array (

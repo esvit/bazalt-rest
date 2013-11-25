@@ -10,18 +10,32 @@ class Resource extends \Tonic\Resource
         $vars = array();
         $second = array();
         foreach (explode('&', $query) as $pair) {
+            $current = &$vars;
             list($key, $value) = explode('=', $pair);
             if ('' == trim($value)) {
                 continue;
             }
+            $key = urldecode($key);
+            $tokens = explode('[', str_replace(']', '', $key));
+            if (count($tokens) > 1) {
+                $key = $tokens[count($tokens) - 1];
+                $tokens = array_slice($tokens, 0, -1);
+                foreach ($tokens as $token) {
+                    if (!array_key_exists($token, $current)) {
+                        $current[$token] = [];
+                    }
+                    $current = &$current[$token];
+                }
+                $key = empty($key) ? count($current) : $key;
+            }
 
-            if (array_key_exists($key, $vars)) {
+            if (array_key_exists($key, $current)) {
                 if (!array_key_exists($key, $second)) {
-                    $second[$key] = array($vars[$key]);
+                    $second[$key] = array($current[$key]);
                 }
                 $second[$key][] = $value;
             } else {
-                $vars[$key] = urldecode($value);
+                $current[$key] = urldecode($value);
             }
         }
         return array_merge($vars, $second);
