@@ -31,7 +31,6 @@ class Resource extends \Tonic\Resource
                 }
                 $key = empty($key) ? count($current) : $key;
             }
-
             if (array_key_exists($key, $current)) {
                 if (!array_key_exists($key, $second)) {
                     $second[$key] = array($current[$key]);
