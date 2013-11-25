@@ -46,7 +46,7 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Exception
      */
     public function testHandleUploadInvalidDir()
     {
@@ -54,7 +54,7 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Exception
      */
     public function testHandleUploadInvalidFile()
     {
@@ -66,7 +66,7 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Exception
      */
     public function testHandleUploadInvalidFile2()
     {
@@ -79,7 +79,7 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Exception
      */
     public function testHandleUploadError()
     {

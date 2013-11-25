@@ -43,13 +43,13 @@ class Uploader
 
 
         if ($_FILES['file']['error'] !== UPLOAD_ERR_OK) {
-            throw new UploaderException($_FILES['file']['error']);
+            throw new Exception\Upload($_FILES['file']['error']);
         }
 
         $fileName = md5(uniqid()) . '.' . $ext;
         $filePath = $this->getSavePath($fileName, $pathParams);
         $fullName = $uploadDirectory . $filePath . $fileName;
-        mkdir(dirname($uploadDirectory . $filePath), 0777, true);
+        @mkdir(dirname($uploadDirectory . $filePath), 0777, true);
 
         $this->moveUploadedFile($_FILES['file']['tmp_name'], $fullName);
 

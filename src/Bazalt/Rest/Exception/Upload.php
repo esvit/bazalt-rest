@@ -1,18 +1,8 @@
 <?php
 
-namespace Bazalt\Rest;
+namespace Bazalt\Rest\Exception;
 
-/**
- * UploaderException
- *
- * @category Uploader
- * @package  BAZALT/Uploader
- * @author   Alex Slubsky <aslubsky@gmail.com>
- * @license  http://www.opensource.org/licenses/lgpl-license.php LGPL
- * @version  Release: $Rev: 20 $
- * @link     http://www.php-solves.com/
- */
-class UploaderException extends \Exception
+class Upload extends \Exception
 {
     /**
      * __construct
