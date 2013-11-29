@@ -25,7 +25,7 @@ class Resource extends \Tonic\Resource
                 $tokens = array_slice($tokens, 0, -1);
                 foreach ($tokens as $token) {
                     if (!array_key_exists($token, $current)) {
-                        $current[$token] = [];
+                        $current[$token] = array();
                     }
                     $current = &$current[$token];
                 }
