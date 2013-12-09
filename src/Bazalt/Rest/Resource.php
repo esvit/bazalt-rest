@@ -6,9 +6,6 @@ class Resource extends \Tonic\Resource
 {
     public static function params()
     {
-        if (TESTING_STAGE) {
-            return $_GET;
-        }
         $query = $_SERVER['QUERY_STRING'];
         $vars = array();
         $second = array();

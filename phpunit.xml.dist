@@ -24,7 +24,6 @@
         <var name="db_name" value="bazalt_cms" />
         <var name="db_port" value="3306"/>
 
-        <const name="TESTING_STAGE" value="1"/>
         <env name="APPLICATION_ENV" value="testing"/>
     </php>
 
