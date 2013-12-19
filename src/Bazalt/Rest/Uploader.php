@@ -53,7 +53,10 @@ class Uploader
 
         $this->moveUploadedFile($_FILES['file']['tmp_name'], $fullName);
 
-        return $filePath . $fileName;
+        return array(
+            'file' => $filePath . $fileName,
+            'name' => $_FILES['file']['name']
+        );
     }
 
     public function moveUploadedFile($src, $dst)

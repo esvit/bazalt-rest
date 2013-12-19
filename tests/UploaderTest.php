@@ -98,11 +98,12 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
             'size' => 10,
             'error' => 0,
             'tmp_name' => '/tmp/test.jpg',
-            'name' => '/tmp/test.jpg'
+            'name' => 'test.jpg'
         );
         $this->uploader->expects($this->once())
             ->method('moveUploadedFile');
         $res = $this->uploader->handleUpload('/tmp/uploads_test', array(21, 'photos'));
-        $this->assertTrue(strstr($res, '/21/photos/') !== false);
+        $this->assertTrue(strstr($res['file'], '/21/photos/') !== false);
+        $this->assertEquals('test.jpg', $res['name']);
     }
 }
