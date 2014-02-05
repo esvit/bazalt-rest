@@ -92,7 +92,13 @@ class Collection
         $this->exec($params);
 
         $return = array();
-        $result = $this->collection->fetchPage($className);
+        try {
+            $result = $this->collection->fetchPage($className);
+        } catch(\Bazalt\ORM\Exception\Collection $ex) {//Invalid page
+            $this->collection->page(1);
+            $result = $this->collection->fetchPage($className);
+        }
+
 
         foreach ($result as $k => $item) {
             if ($callback && is_callable($callback)) {
