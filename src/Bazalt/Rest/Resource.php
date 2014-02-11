@@ -19,10 +19,11 @@ class Resource extends \Tonic\Resource
 
     protected static function parseParams()
     {
-        $query = $_SERVER['QUERY_STRING'];
+        $query = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
         $vars = array();
         $second = array();
-        foreach (explode('&', $query) as $pair) {
+        $parts = explode('&', $query);
+        foreach ($parts as $pair) {
             $current = &$vars;
             list($key, $value) = explode('=', $pair);
             if ('' == trim($value)) {
