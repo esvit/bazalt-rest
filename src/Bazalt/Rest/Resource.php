@@ -4,7 +4,20 @@ namespace Bazalt\Rest;
 
 class Resource extends \Tonic\Resource
 {
-    public static function params()
+    protected static $parsedParams = null;
+
+    public static function params($params = null)
+    {
+        if($params === null) {
+            if(self::$parsedParams === null) {
+                self::$parsedParams = self::parseParams();
+            }
+            return self::$parsedParams;
+        }
+        self::$parsedParams = $params;
+    }
+
+    protected static function parseParams()
     {
         $query = $_SERVER['QUERY_STRING'];
         $vars = array();
