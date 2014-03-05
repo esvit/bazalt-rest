@@ -29,16 +29,15 @@ class Uploader
 
         $size = $this->getFileSize();
         if ($size == 0) {
-            throw new \Exception('File is empty.');
+            throw new Exception\Upload(UPLOAD_ERR_NO_FILE);
         }
         if ($size > $this->sizeLimit) {
-            throw new \Exception('File is too large.');
+            throw new Exception\Upload(UPLOAD_ERR_INI_SIZE);
         }
 
         $ext = $this->getExt();
         if ($this->allowedExtensions && !in_array(strtolower($ext), $this->allowedExtensions)) {
-            $these = implode(', ', $this->allowedExtensions);
-            throw new \Exception(sprintf('File has an invalid extension, it should be one of "%s"', $these));
+            throw new Exception\Upload(UPLOAD_ERR_EXTENSION, $this->allowedExtensions);
         }
 
 

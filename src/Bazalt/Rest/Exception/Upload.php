@@ -4,15 +4,26 @@ namespace Bazalt\Rest\Exception;
 
 class Upload extends \Exception
 {
+    private $_allowedExtensions = array();
+
     /**
      * __construct
      *
      * @param int $code
      */
-    public function __construct($code)
+    public function __construct($code, $allowed = array())
     {
         $message = $this->codeToMessage($code);
+
+        $this->_allowedExtensions = $allowed;
+
         parent::__construct($message, $code);
+    }
+
+
+    public function getAllowedExtensions()
+    {
+        return $this->_allowedExtensions;
     }
 
     /**
