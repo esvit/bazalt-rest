@@ -27,6 +27,10 @@ class Uploader
             throw new \Exception("Server error. Upload directory isn't writable.");
         }
 
+        if ($_FILES['file']['error'] !== UPLOAD_ERR_OK) {
+            throw new Exception\Upload($_FILES['file']['error']);
+        }
+
         $size = $this->getFileSize();
         if ($size == 0) {
             throw new Exception\Upload(UPLOAD_ERR_NO_FILE);
@@ -38,11 +42,6 @@ class Uploader
         $ext = $this->getExt();
         if ($this->allowedExtensions && !in_array(strtolower($ext), $this->allowedExtensions)) {
             throw new Exception\Upload(UPLOAD_ERR_EXTENSION, $this->allowedExtensions);
-        }
-
-
-        if ($_FILES['file']['error'] !== UPLOAD_ERR_OK) {
-            throw new Exception\Upload($_FILES['file']['error']);
         }
 
         $fileName = md5(uniqid()) . '.' . $ext;
