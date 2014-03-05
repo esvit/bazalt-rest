@@ -27,6 +27,10 @@ class Uploader
             throw new \Exception("Server error. Upload directory isn't writable.");
         }
 
+        if (!isset($_FILES['file'])) {
+            throw new Exception\Upload(UPLOAD_ERR_INI_SIZE);
+        }
+
         if ($_FILES['file']['error'] !== UPLOAD_ERR_OK) {
             throw new Exception\Upload($_FILES['file']['error']);
         }
