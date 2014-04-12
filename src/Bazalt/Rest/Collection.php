@@ -121,10 +121,10 @@ class Collection
         $data = array(
             'data' => $return,
             'pager' => array(
-                'current'       => $this->collection->page(),
-                'count'         => $this->collection->getPagesCount(),
-                'total'         => $this->collection->count(),
-                'countPerPage'  => $this->collection->countPerPage()
+                'current'       => (int)$this->collection->page(),
+                'count'         => (int)$this->collection->getPagesCount(),
+                'total'         => (int)$this->collection->count(),
+                'countPerPage'  => (int)$this->collection->countPerPage()
             )
         );
         //$data['sql'] = $this->collection->toSQL();
