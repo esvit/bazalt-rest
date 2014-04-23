@@ -25,6 +25,9 @@ class Resource extends \Tonic\Resource
         $parts = explode('&', $query);
         foreach ($parts as $pair) {
             $current = &$vars;
+            if (strpos($pair, '=') === false) {
+                continue;
+            }
             list($key, $value) = explode('=', $pair);
             if ('' == trim($value)) {
                 continue;
