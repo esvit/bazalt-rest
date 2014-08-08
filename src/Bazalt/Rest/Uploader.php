@@ -28,7 +28,7 @@ class Uploader
         }
 
         if (!isset($_FILES['file'])) {
-            throw new Exception\Upload(UPLOAD_ERR_INI_SIZE);
+            throw new Exception\Upload(0);//default message
         }
 
         if ($_FILES['file']['error'] !== UPLOAD_ERR_OK) {
