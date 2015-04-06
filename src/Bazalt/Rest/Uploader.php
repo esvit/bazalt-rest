@@ -24,7 +24,7 @@ class Uploader
     public function handleUpload($uploadDirectory, $pathParams = array())
     {
         if (!is_writable($uploadDirectory)) {
-            throw new \Exception("Server error. Upload directory isn't writable.");
+            throw new \Exception(sprintf("Upload directory '%s' isn't writable.", $uploadDirectory));
         }
 
         if (!isset($_FILES['file'])) {
