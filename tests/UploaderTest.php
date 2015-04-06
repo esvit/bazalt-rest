@@ -59,7 +59,8 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
     public function testHandleUploadInvalidFile()
     {
         $_FILES['file'] = array(
-            'size' => 0
+            'size' => 0,
+            'error' => 0
         );
         $res = $this->uploader->handleUpload('/tmp');
         $this->assertEquals(array('error' => 'File is empty.'), $res);
@@ -72,6 +73,7 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
     {
         $_FILES['file'] = array(
             'size' => 10,
+            'error' => 0,
             'name' => '/tmp/test.jpg'
         );
         $this->uploader = new \Bazalt\Rest\Uploader(array('png'), 1024);
