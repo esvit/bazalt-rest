@@ -63,8 +63,14 @@ class Uploader
 
     public function moveUploadedFile($src, $dst)
     {
-        if (!move_uploaded_file($src, $dst)) {
-            throw new \Exception('Cannot move file');
+        if (is_uploaded_file($src)) {
+            if (!move_uploaded_file($src, $dst)) {
+                throw new \Exception('Cannot move file ' . $src . ',' . $dst);
+            }
+        } else {
+            if (!rename($src, $dst)) {
+                throw new \Exception('Cannot move file ' . $src . ',' . $dst);
+            }
         }
     }
 
