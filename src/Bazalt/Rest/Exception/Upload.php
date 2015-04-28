@@ -38,7 +38,10 @@ class Upload extends \Exception
     {
         switch ($code) {
             case UPLOAD_ERR_INI_SIZE:
-                $message = 'The uploaded file exceeds the upload_max_filesize directive in php.ini';
+                $message = sprintf(
+                    'The uploaded file exceeds the upload_max_filesize directive in php.ini (post_max_size: %s, upload_max_filesize: %s)',
+                    ini_get('post_max_size'), ini_get('upload_max_filesize')
+                );
                 break;
             case UPLOAD_ERR_FORM_SIZE:
                 $message = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form';
