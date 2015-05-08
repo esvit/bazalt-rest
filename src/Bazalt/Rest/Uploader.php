@@ -44,7 +44,7 @@ class Uploader
         }
 
         $ext = $this->getExt();
-        if ($this->allowedExtensions && !in_array(strtolower($ext), $this->allowedExtensions)) {
+        if (($this->allowedExtensions && !in_array(strtolower($ext), $this->allowedExtensions)) || !$ext) {
             throw new Exception\Upload(UPLOAD_ERR_EXTENSION, $this->allowedExtensions);
         }
 
@@ -92,8 +92,8 @@ class Uploader
 
     protected function getExt()
     {
-        $pathinfo = pathinfo($this->getFileName());
-        return $pathinfo['extension'];
+        $pathinfo = pathinfo($this->getFileName(), array(PATHINFO_EXTENSION));
+        return isset($pathinfo['extension']) ? $pathinfo['extension'] : null;
     }
 
     protected function getFileName()
