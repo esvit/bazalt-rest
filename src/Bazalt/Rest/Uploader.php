@@ -93,7 +93,7 @@ class Uploader
     protected function getExt()
     {
         $pathinfo = pathinfo($this->getFileName());
-        return isset($pathinfo['extension']) ? $pathinfo['extension'] : null;
+        return isset($pathinfo['extension']) ? strtolower($pathinfo['extension']) : null;
     }
 
     protected function getFileName()
