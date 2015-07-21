@@ -100,4 +100,29 @@ class Uploader
     {
         return $_FILES['file']['name'];
     }
+    
+    public static function autoRotateImage($src)
+    {
+        $exif = @exif_read_data($src, 'IFD0');
+        $ort = $exif ? $exif['Orientation'] : 0;
+
+        if($ort > 2) {
+            $image = imagecreatefromjpeg($src);
+            switch ($ort) {
+                case 3: // 180 rotate left
+                    $image = imagerotate($image, 180, 0);
+                    break;
+                case 6: // 90 rotate right
+                    $image = imagerotate($image, -90, 0);
+                    break;
+                case 8:    // 90 rotate left
+                    $image = imagerotate($image, 90, 0);
+                    break;
+            }
+            if(!$image) {
+                throw new \Exception('Cannot rotate file ' . $src);
+            }
+            imagejpeg($image, $src, 100);
+        }
+    }
 }
