@@ -104,7 +104,7 @@ class Uploader
     public static function autoRotateImage($src)
     {
         $exif = @exif_read_data($src, 'IFD0');
-        $ort = $exif ? $exif['Orientation'] : 0;
+        $ort = $exif && isset($exif['Orientation']) ? $exif['Orientation'] : 0;
 
         if($ort > 2) {
             $image = imagecreatefromjpeg($src);
