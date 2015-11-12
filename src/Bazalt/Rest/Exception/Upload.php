@@ -26,6 +26,15 @@ class Upload extends \Exception
         return $this->_allowedExtensions;
     }
 
+    public function toArray()
+    {
+        $arr = array();
+        $arr['error'] = $this->getMessage();
+        $arr['code'] = $this->getCode();
+        $arr['allowed_extensions'] = $this->_allowedExtensions;
+        return $arr;
+    }
+
     /**
      *
      *
