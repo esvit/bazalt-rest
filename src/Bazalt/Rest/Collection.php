@@ -4,6 +4,10 @@ namespace Bazalt\Rest;
 
 class Collection
 {
+    const FILTER_TYPE_LIKE = 'like';
+
+    const FILTER_TYPE_DATES_BETWEEN = 'dates_between';
+
     /**
      * @var \Bazalt\ORM\Collection
      */
@@ -53,6 +57,15 @@ class Collection
                 if ($this->filterColumns[$columnName] !== false && is_callable($this->filterColumns[$columnName])) {
                     $callback = $this->filterColumns[$columnName];
                     $callback($this->collection, $columnName, $value);
+                } else if ($this->filterColumns[$columnName] == self::FILTER_TYPE_LIKE) {
+                    if($value) {
+                        $value = '%' . strtolower($value) . '%';
+                        $this->collection->andWhere('LOWER(`' . $columnName . '`) LIKE ?', $value);
+                    }
+                } else if ($this->filterColumns[$columnName] == self::FILTER_TYPE_DATES_BETWEEN) {
+                    if(isset($params[$columnName]) && is_array($params[$columnName])) {
+                        $this->collection->andWhere('DATE(`' . $columnName . '`) BETWEEN ? AND ?', $params[$columnName]);
+                    }
                 } else {
                     $this->collection->andWhere('`' . $columnName . '` = ?', $value);
                 }
