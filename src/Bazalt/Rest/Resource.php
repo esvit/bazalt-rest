@@ -17,9 +17,11 @@ class Resource extends \Tonic\Resource
         self::$parsedParams = $params;
     }
 
-    protected static function parseParams()
+    public static function parseParams($query = null)
     {
-        $query = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
+        if($query === null) {
+            $query = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : '';
+        }
         $vars = array();
         $second = array();
         $parts = explode('&', $query);
