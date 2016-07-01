@@ -4,6 +4,8 @@ namespace Bazalt\Rest\Exception;
 
 class Upload extends \Exception
 {
+    const UPLOAD_ERR_POST_HOOK = 9; 
+    
     private $_allowedExtensions = array();
 
     /**
@@ -24,6 +26,11 @@ class Upload extends \Exception
     public function getAllowedExtensions()
     {
         return $this->_allowedExtensions;
+    }
+
+    public function setMessage($message)
+    {
+        $this->message = $message;
     }
 
     public function toArray()
@@ -70,7 +77,10 @@ class Upload extends \Exception
             case UPLOAD_ERR_EXTENSION:
                 $message = 'File upload stopped by extension';
                 break;
-
+            case self::UPLOAD_ERR_POST_HOOK:
+                $message = 'File upload stopped by post upload hook';
+                break;
+                
             default:
                 $message = 'Could not save uploaded file. The upload was cancelled, or server error encountered';
                 break;
