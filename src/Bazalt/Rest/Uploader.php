@@ -9,6 +9,8 @@ class Uploader
     private $allowedExtensions = array();
 
     private $sizeLimit = DEFAULT_MAX_SIZE;
+    
+    private static $postUploadHooks = array();
 
     public function __construct(array $allowedExtensions = array(), $sizeLimit = DEFAULT_MAX_SIZE)
     {
@@ -17,7 +19,12 @@ class Uploader
         $this->allowedExtensions = $allowedExtensions;
         $this->sizeLimit = $sizeLimit;
     }
-
+    
+    public static function addPostUploadHook($cb)
+    {
+        self::$postUploadHooks []= $cb;
+    }
+    
     /**
      * Returns array('success'=>true) or array('error'=>'error message')
      */
@@ -63,6 +70,8 @@ class Uploader
 
     public function moveUploadedFile($src, $dst)
     {
+        $this->checkPostUpload($src);
+
         if (is_uploaded_file($src)) {
             if (!move_uploaded_file($src, $dst)) {
                 throw new \Exception('Cannot move file ' . $src . ',' . $dst);
@@ -70,6 +79,19 @@ class Uploader
         } else {
             if (!rename($src, $dst)) {
                 throw new \Exception('Cannot move file ' . $src . ',' . $dst);
+            }
+        }
+    }
+
+    protected function checkPostUpload($file)
+    {
+        foreach(self::$postUploadHooks as $postUploadHook) {
+            $cbRes = call_user_func($postUploadHook, $file);
+            if($cbRes !== true) {
+                @unlink($file);
+                $cbExveption = new Exception\Upload(Exception\Upload::UPLOAD_ERR_POST_HOOK);
+                $cbExveption->setMessage($cbRes);
+                throw $cbExveption;
             }
         }
     }
