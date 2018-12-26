@@ -6,9 +6,9 @@ define('DEFAULT_MAX_SIZE', 10485760);
 
 class Uploader
 {
-    private $allowedExtensions = array();
+    protected $allowedExtensions = array();
 
-    private $sizeLimit = DEFAULT_MAX_SIZE;
+    protected $sizeLimit = DEFAULT_MAX_SIZE;
     
     private static $postUploadHooks = array();
 
