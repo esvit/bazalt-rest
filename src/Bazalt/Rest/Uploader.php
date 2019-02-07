@@ -65,6 +65,7 @@ class Uploader
         return array(
             'file' => $filePath . $fileName,
             'extension' => $ext,
+            'size' => $size,
             'name' => $_FILES['file']['name']
         );
     }
