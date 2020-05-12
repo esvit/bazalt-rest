@@ -1,8 +1,7 @@
 language: php
 
 php:
-  - 5.5
-  - 5.6
+  - 7.3
 
 env:
   - APPLICATION_ENV="testing" DB="mysql" DB_USERNAME="root"
@@ -14,7 +13,7 @@ before_script:
 script:
   - mkdir -p tmp/logs
   - mkdir -p build/logs
-  - phpunit --configuration phpunit.xml.dist
+  - ./vendor/bin/phpunit --configuration phpunit.xml.dist
 
 after_script:
   - php vendor/bin/coveralls -v

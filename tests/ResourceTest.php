@@ -9,7 +9,7 @@ class ResourceTest extends \Bazalt\Rest\Test\BaseCase
 {
     protected $app;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         global $loader;
 
@@ -21,7 +21,7 @@ class ResourceTest extends \Bazalt\Rest\Test\BaseCase
         $this->app = new Tonic\Application($config);
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
     }
 

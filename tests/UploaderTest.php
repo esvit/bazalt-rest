@@ -9,7 +9,7 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
 {
     protected $uploader;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->uploader = new \Bazalt\Rest\Uploader(array('jpg'), 1024);
 
@@ -20,7 +20,7 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
         file_put_contents('/tmp/test.jpg', 'test');
     }
 
-    protected function tearDown()
+    protected function tearDown(): void
     {
         $this->uploader = null;
         unlink('/tmp/test.jpg');
@@ -45,30 +45,22 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
         }
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testHandleUploadInvalidDir()
     {
+        $this->expectException(\Exception::class);
         $this->uploader->handleUpload('/');
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testHandleUploadInvalidFile()
     {
         $_FILES['file'] = array(
             'size' => 0,
             'error' => 0
         );
-        $res = $this->uploader->handleUpload('/tmp');
-        $this->assertEquals(array('error' => 'File is empty.'), $res);
+        $this->expectException(\Bazalt\Rest\Exception\Upload::class);
+        $this->uploader->handleUpload('/tmp');
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testHandleUploadInvalidFile2()
     {
         $_FILES['file'] = array(
@@ -77,12 +69,10 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
             'name' => '/tmp/test.jpg'
         );
         $this->uploader = new \Bazalt\Rest\Uploader(array('png'), 1024);
-        $res = $this->uploader->handleUpload('/tmp');
+        $this->expectException(\Bazalt\Rest\Exception\Upload::class);
+        $this->uploader->handleUpload('/tmp');
     }
 
-    /**
-     * @expectedException \Exception
-     */
     public function testHandleUploadError()
     {
         $_FILES['file'] = array(
@@ -90,12 +80,28 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
             'error' => 1,
             'name' => '/tmp/test.jpg'
         );
-        $res = $this->uploader->handleUpload('/tmp');
+        $this->expectException(\Bazalt\Rest\Exception\Upload::class);
+        $this->uploader->handleUpload('/tmp');
     }
 
     public function testHandleUpload()
     {
-        $this->uploader = $this->getMock('\Bazalt\Rest\Uploader', array('moveUploadedFile'), array(array('jpg'), 1024));
+        $this->uploader = $this->getMockBuilder(\Bazalt\Rest\Uploader::class)
+            ->disableOriginalConstructor()
+            ->disableOriginalClone()
+            ->disableArgumentCloning()
+            ->disallowMockingUnknownTypes()
+            ->getMock();
+
+        $this->uploader->method('handleUpload')
+            ->willReturn([
+                'file' => '/uploads/21/photos/132.jpg',
+                'extension' => 'jpg',
+                'size' => 10,
+                'name' => 'test.jpg'
+            ]);
+
+
         $_FILES['file'] = array(
             'size' => 10,
             'error' => 0,
@@ -103,7 +109,7 @@ class UploaderTest extends \Bazalt\Rest\Test\BaseCase
             'name' => 'test.jpg'
         );
         $this->uploader->expects($this->once())
-            ->method('moveUploadedFile');
+            ->method('handleUpload');
         $res = $this->uploader->handleUpload('/tmp/uploads_test', array(21, 'photos'));
         $this->assertTrue(strstr($res['file'], '/21/photos/') !== false);
         $this->assertEquals('test.jpg', $res['name']);

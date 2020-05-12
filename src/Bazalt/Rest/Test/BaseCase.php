@@ -5,7 +5,7 @@ namespace Bazalt\Rest\Test;
 use Tonic;
 use Bazalt\Rest;
 
-abstract class BaseCase extends \PHPUnit_Framework_TestCase
+abstract class BaseCase extends \PHPUnit\Framework\TestCase
 {
     protected $app;
 

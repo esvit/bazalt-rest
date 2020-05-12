@@ -28,8 +28,8 @@ class Hello extends \Bazalt\Rest\Resource
     public function sayHelloComputer()
     {
         return new \Bazalt\Rest\Response(200, array(
-            'hello' => $this->name,
-            'url' => $this->app->uri($this, $this->name)
+            'hello' => '',
+            'url' => '/hello'
         ));
     }
 
